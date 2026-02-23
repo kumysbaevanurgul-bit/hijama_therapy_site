@@ -4,6 +4,25 @@ import './App.css'
 function App() {
   const [activeSection, setActiveSection] = useState('home')
   const [showContactForm, setShowContactForm] = useState(false)
+  const [reviews, setReviews] = useState([
+    {
+      name: 'Айнур К.',
+      text: 'Спасибо за профессиональный подход! После нескольких сеансов хиджамы боль в спине полностью прошла.',
+      rating: 5
+    },
+    {
+      name: 'Марат Т.',
+      text: 'Отличный специалист! Рекомендую всем, кто хочет избавиться от хронических болей.',
+      rating: 5
+    },
+    {
+      name: 'Гульнара М.',
+      text: 'Гирудотерапия действительно работает! Чувствую себя намного лучше.',
+      rating: 5
+    }
+  ])
+  const [formData, setFormData] = useState({ name: '', email: '', rating: 5, text: '' })
+  const [reviewSubmitted, setReviewSubmitted] = useState(false)
 
   const services = [
     {
@@ -26,23 +45,20 @@ function App() {
     }
   ]
 
-  const testimonials = [
-    {
-      name: 'Айнур К.',
-      text: 'Спасибо за профессиональный подход! После нескольких сеансов хиджамы боль в спине полностью прошла.',
-      rating: 5
-    },
-    {
-      name: 'Марат Т.',
-      text: 'Отличный специалист! Рекомендую всем, кто хочет избавиться от хронических болей.',
-      rating: 5
-    },
-    {
-      name: 'Гульнара М.',
-      text: 'Гирудотерапия действительно работает! Чувствую себя намного лучше.',
-      rating: 5
+  const handleReviewSubmit = (e) => {
+    e.preventDefault()
+    if (formData.name && formData.text && formData.rating) {
+      const newReview = {
+        name: formData.name,
+        text: formData.text,
+        rating: parseInt(formData.rating)
+      }
+      setReviews([...reviews, newReview])
+      setFormData({ name: '', email: '', rating: 5, text: '' })
+      setReviewSubmitted(true)
+      setTimeout(() => setReviewSubmitted(false), 3000)
     }
-  ]
+  }
 
   return (
     <div className="app">
@@ -74,6 +90,12 @@ function App() {
               onClick={() => setActiveSection('about')}
             >
               О нас
+            </button>
+            <button 
+              className={`nav-btn ${activeSection === 'reviews' ? 'active' : ''}`}
+              onClick={() => setActiveSection('reviews')}
+            >
+              Отзывы
             </button>
             <button 
               className={`nav-btn ${activeSection === 'contacts' ? 'active' : ''}`}
@@ -165,7 +187,7 @@ function App() {
                 </div>
                 <div className="testimonials">
                   <h3>Отзывы клиентов</h3>
-                  {testimonials.map((testimonial, idx) => (
+                  {reviews.slice(0, 3).map((testimonial, idx) => (
                     <div key={idx} className="testimonial">
                       <div className="stars">
                         {'★'.repeat(testimonial.rating)}
@@ -174,6 +196,93 @@ function App() {
                       <p className="author">— {testimonial.name}</p>
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Reviews Section */}
+        {activeSection === 'reviews' && (
+          <section className="section reviews">
+            <div className="container">
+              <h2>Отзывы клиентов</h2>
+              <div className="reviews-content">
+                <div className="reviews-list">
+                  <h3>Что говорят наши клиенты</h3>
+                  {reviews.map((testimonial, idx) => (
+                    <div key={idx} className="review-item">
+                      <div className="stars">
+                        {'★'.repeat(testimonial.rating)}
+                      </div>
+                      <p className="review-text">"{testimonial.text}"</p>
+                      <p className="review-author">— {testimonial.name}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="review-form-section">
+                  <h3>Оставить отзыв</h3>
+                  {reviewSubmitted && (
+                    <div className="success-message">
+                      ✓ Спасибо! Ваш отзыв успешно добавлен!
+                    </div>
+                  )}
+                  <form onSubmit={handleReviewSubmit} className="review-form">
+                    <div className="form-group">
+                      <label>Ваше имя *</label>
+                      <input 
+                        type="text" 
+                        value={formData.name}
+                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        placeholder="Введите ваше имя"
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Email (опционально)</label>
+                      <input 
+                        type="email" 
+                        value={formData.email}
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        placeholder="Ваш email"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Оценка *</label>
+                      <select 
+                        value={formData.rating}
+                        onChange={(e) => setFormData({...formData, rating: e.target.value})}
+                      >
+                        <option value="5">⭐⭐⭐⭐⭐ Отлично</option>
+                        <option value="4">⭐⭐⭐⭐ Хорошо</option>
+                        <option value="3">⭐⭐⭐ Нормально</option>
+                        <option value="2">⭐⭐ Плохо</option>
+                        <option value="1">⭐ Очень плохо</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label>Ваш отзыв *</label>
+                      <textarea 
+                        value={formData.text}
+                        onChange={(e) => setFormData({...formData, text: e.target.value})}
+                        placeholder="Поделитесь своим мнением..."
+                        rows="5"
+                        required
+                      />
+                    </div>
+                    <button type="submit" className="cta-btn">Отправить отзыв</button>
+                  </form>
+                  <div className="external-reviews">
+                    <h4>Или оставьте отзыв на:</h4>
+                    <div className="external-links">
+                      <a href="https://www.google.com/maps/search/NS+ReVita+Semey" target="_blank" rel="noopener noreferrer" className="external-btn google">
+                        🔍 Google Карты
+                      </a>
+                      <a href="https://yandex.ru/maps/" target="_blank" rel="noopener noreferrer" className="external-btn yandex">
+                        🗺️ Яндекс.Карты
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
