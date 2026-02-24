@@ -314,7 +314,7 @@ function App() {
                       <a href="https://wa.me/message/FTVBBDXRWYJGC1" target="_blank" rel="noopener noreferrer" className="social-btn whatsapp">
                         💬 WhatsApp 2
                       </a>
-                      <a href="https://www.instagram.com/massage_courses_semey_ns" target="_blank" rel="noopener noreferrer" className="social-btn instagram">
+                      <a href="https://www.instagram.com/massage_courses_semey_nsrevita" target="_blank" rel="noopener noreferrer" className="social-btn instagram">
                         📸 Instagram
                       </a>
                     </div>
