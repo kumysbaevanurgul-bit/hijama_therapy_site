@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /private
+
+Sitemap: https://hijama-therapy-site.netlify.app/sitemap.xml
+
+# Google-specific
+User-agent: Googlebot
+Allow: /
+
+# Yandex-specific
+User-agent: Yandexbot
+Allow: /
