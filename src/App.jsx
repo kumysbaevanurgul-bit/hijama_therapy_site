@@ -340,7 +340,7 @@ function App() {
       <footer className="footer">
         <div className="container">
           <p>&copy; 2024 NS|ReVita. Все права защищены.</p>
-          <p className="footer-note">г. Семей, ул. Валиханова, 167 | Приём: 8:00 - 21:00</p>
+          <p className="footer-note">г. Семей, ул. Момышулы 9, 0 этаж, 9 кабинет| Приём: 8:00 - 21:00</p>
         </div>
       </footer>
     </div>
