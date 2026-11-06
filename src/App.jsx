@@ -298,7 +298,7 @@ function App() {
                 <div className="contact-info">
                   <div className="contact-item">
                     <h3>📍 Адрес</h3>
-                    <p>г. Семей, ул. Валиханова, 167</p>
+                    <p>г. Семей, ул. Момышулы 9, 0 этаж, 9 кабинет</p>
                   </div>
                   <div className="contact-item">
                     <h3>⏰ Время работы</h3>
